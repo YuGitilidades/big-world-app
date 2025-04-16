@@ -1,0 +1,74 @@
+.header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    width: 100%;
+    position: fixed; /* Torna o footer fixo */
+    top: 0; /* Posiciona o footer na parte inferior */
+    left: 0; /* Garante que ele comece na borda esquerda */
+    z-index: 1000; /* Garante que o footer fique acima de outros elementos */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Sombra opcional */
+}
+
+.company-name {
+    margin: 0;
+    font-size: 40px;
+    margin-bottom: 20px; /* Add margin-bottom to create space */
+}
+
+.nav {
+    margin-top: 10px;
+}
+
+.nav-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap; /* Allow wrapping of nav items */
+}
+
+.nav-item {
+    position: relative;
+}
+
+.nav-item a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 24px;
+    padding: 5px 10px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-item a:hover {
+    background-color: #555;
+}
+
+.nav-item .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #444;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    min-width: 150px;
+}
+
+.nav-item .dropdown-menu li a {
+    padding: 10px 15px;
+}
+
+.nav-item:hover .dropdown-menu {
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .nav-list {
+        flex-direction: column; /* Stack nav items vertically on smaller screens */
+    }
+}
