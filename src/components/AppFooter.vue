@@ -2,7 +2,7 @@
   <footer class="footer">
     <div class="footer-links">
       <a href="/faq">FAQ</a>
-      <a href="/who-we-are">Feito com ygoprodeckapi</a>
+      <a href="https://ygoprodeck.com/api-guide/">Feito com ygoprodeckapi</a>
       <a href="/contact-us">Contate-nos</a>
       <a href="/terms">Termos de serviço</a>
       <a href="/privacy">Política de privacidade</a>

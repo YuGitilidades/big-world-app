@@ -1,15 +1,54 @@
 <template>
     <div>
-      <h1><center>Prob (Adicionar para a mão)</center></h1>
-      <p>This is the main content area of the website.</p>
-      <h1><center>Prob (Adicionar para a mão)</center></h1>
-      <p>This is the main content area of the website.</p>
-      <h1><center>Prob (Adicionar para a mão)</center></h1>
-      <p>This is the main content area of the website.</p>
-      <h1><center>Prob (Adicionar para a mão)</center></h1>
-      <p>This is the main content area of the website.</p>
-      <h1><center>Prob (Adicionar para a mão)</center></h1>
-      <p>This is the main content area of the website.</p>
+      <h1><center>Calculadora para calcular probabilidades!</center></h1>
+      <input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          />
+          <input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          />
+          <input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          />
+          <input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          />
+          <input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          /><input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          />
+          <input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          />
     </div>
   </template>
   

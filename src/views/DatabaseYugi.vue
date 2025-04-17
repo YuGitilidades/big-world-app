@@ -1,18 +1,18 @@
 <template>
   <div class="app-container">
     <div class="main-content-container">
-      <CartaA />
+      <ShowDataBase />
     </div>
   </div>
 </template>
 
 <script>
-import CartaA from '../components/CartaA.vue';
+import ShowDataBase from '../components/ShowDataBase.vue';
 
 export default {
   name: 'DatabaseYugi',
   components: {
-    CartaA
+    ShowDataBase
   }
 };
 </script>
