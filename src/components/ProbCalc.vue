@@ -8,7 +8,7 @@
       <input type="number" v-model.number="deckSize" placeholder="Ex.: 40" />
 
       <label for="sampleSize">Número de cartas na mão (n):</label>
-      <input type="number" v-model.number="sampleSize" placeholder="Ex.: 7" />
+      <input type="number" v-model.number="sampleSize" placeholder="Ex.: 5" />
     </div>
 
     <h2>Conjuntos de Cartas</h2>
@@ -24,7 +24,7 @@
         />
       </h3>
       <label for="successes">Número de cartas no deck (K):</label>
-      <input type="number" v-model.number="set.successes" placeholder="Ex.: 5" />
+      <input type="number" v-model.number="set.successes" placeholder="Ex.: 3" />
 
       <label for="desiredSuccesses">Número de cópias desejadas na mão (k):</label>
       <input type="number" v-model.number="set.desiredSuccesses" placeholder="Ex.: 1" />
@@ -43,8 +43,8 @@
 
     <!-- Resultado -->
     <div v-if="probability !== null">
-      <h2>Resultado:</h2>
-      <p>Probabilidade: {{ (probability * 100).toFixed(2) }}%</p>
+        <h2>Resultado:</h2>
+        <p>{{ formatSmallNumber(probability) }} ≈ {{ formatAsFraction(probability) }}</p>
     </div>
   </div>
 </template>
@@ -90,30 +90,29 @@ export default {
             return;
           }
 
-          // Calcula o total de cartas não pertencentes a nenhum conjunto
-          let totalOtherCards = N;
-          for (const set of this.cardSets) {
-              totalOtherCards -= set.successes;
+          // Verifica se a soma das cartas desejadas <= tamanho da mão
+          const totalDesired = this.cardSets.reduce((sum, set) => sum + set.desiredSuccesses, 0);
+          if (totalDesired > n) {
+            this.probability = 0;
+            return;
           }
 
-          // Verifica se há cartas suficientes no deck
-          if (totalOtherCards < 0) {
-              alert('O número total de cartas excede o tamanho do deck!');
-              return;
-          }
+          // Calcula o total de cartas NÃO pertencentes a nenhum conjunto
+          const totalOtherCards = N - this.cardSets.reduce((sum, set) => sum + set.successes, 0);
 
           // Numerador: (produtório das combinações de cada conjunto) * combinações das cartas restantes
           let numerator = 1;
           for (const set of this.cardSets) {
-              numerator *= this.calculateCombination(set.successes, set.desiredSuccesses);
+            numerator *= this.calculateCombination(set.successes, set.desiredSuccesses);
           }
-          const remainingCards = n - this.cardSets.reduce((sum, set) => sum + set.desiredSuccesses, 0);
-          numerator *= this.calculateCombination(totalOtherCards, remainingCards);
+          numerator *= this.calculateCombination(totalOtherCards, n - totalDesired);
 
-          // Denominador: combinações totais possíveis
+          // Denominador: combinações totais
           const denominator = this.calculateCombination(N, n);
 
           this.probability = numerator / denominator;
+
+       
     },
     addCardSet() {
         // Adiciona um novo conjunto de cartas
@@ -127,6 +126,26 @@ export default {
     removeCardSet(index) {
       // Remove o conjunto de cartas pelo índice
       this.cardSets.splice(index, 1);
+    },
+    formatSmallNumber(num) {
+        // Se o número for "grande" o suficiente, mostra como porcentagem normal
+        if (num >= 0.0001) {
+          return (num * 100).toFixed(5) + '%';
+        }
+
+        // Para números muito pequenos:
+        const str = num.toExponential(5); // Ex: "1.51974e-6"
+        const [base, exponent] = str.split('e-');
+        
+        // Converte para fração decimal (opcional)
+        const decimalForm = `0.${'0'.repeat(parseInt(exponent) - 1)}${base.replace('.', '')}%`;
+        
+        // Retorna ambas as formas (notação científica e decimal)
+        return `${decimalForm} (${str})`;
+    },
+    formatAsFraction(num) {
+        const denominator = Math.round(1 / num);
+        return `1 em ${denominator.toLocaleString()}`;
     }
   }
 };
