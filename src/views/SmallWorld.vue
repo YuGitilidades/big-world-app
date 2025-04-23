@@ -4,7 +4,7 @@
             <CartaA />
             <CartaB />
       </div>
-      <div class="main-content-container">
+      <div class="main-content-container2">
             <CartaC />
       </div>
     </div>

@@ -8,12 +8,15 @@
     color: #fff;
     padding: 10px 0;
     text-align: center;
+    position: fixed; /* Fixa o header na tela */
+    z-index: 1000; /* Garante que o header fique acima de outros elementos */
     width: 100%
+    
 }
 
 .company-name {
     margin: 0;
-    font-size: 24px;
+    font-size: 48px;
     margin-bottom: 20px
 }
 
@@ -156,7 +159,19 @@ html {
     width: 100%;
     flex-grow: 1;
     flex-wrap: wrap;
-    padding: 20px
+    padding: 40px;
+    margin-bottom: 10px;
+    height: 100px;
+}
+
+.main-content-container2 {
+    display: center;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    flex-grow: 1;
+    flex-wrap: wrap;
+    padding: 10px
 }
 
 .main-content-container>* {
@@ -165,6 +180,7 @@ html {
 }
 
 .main-content {
+    margin-top: 20px;
     padding-top: 60px; /* Ajuste este valor para a altura do header */
   }
 
