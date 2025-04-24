@@ -25,7 +25,8 @@
         <h2>Informações da Carta:</h2>
         <div v-if="cardInfo.name">
           <h3>{{ cardInfo.name }}</h3>
-          <p><strong>Tipo:</strong> {{ cardInfo.type }}</p>
+          <p><strong>Atributo:</strong> {{ cardInfo.attribute }}</p>
+          <p><strong>Tipo:</strong> {{ cardInfo.race }}</p>
           <p><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
           <p><strong>ATK/DEF:</strong> {{ cardInfo.atk }}/{{ cardInfo.def }}</p>
           <p><strong>Level:</strong> {{ cardInfo.level }}</p>
