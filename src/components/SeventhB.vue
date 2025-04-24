@@ -1,32 +1,46 @@
 <template>
     <div>
-      <h1><center>Carta B (Adicionar para mão)</center></h1>
-      <!-- Dropdown Digitável -->
-    <label for="dropdown">Procure o monstro:</label>
-    <P></P>
-    <div class="dropdown-container">
-        <input
-          id="dropdown"
-          type="text"
-          v-model="textInput"
-          placeholder="Digite para filtrar..."
-          @input="filterSuggestions"
-        />
-        <!-- Dropdown com Sugestões Filtradas -->
-        <select v-if="filteredSuggestions.length" v-model="selectedOption" @change="fetchCardInfo">
-          <option v-for="(suggestion, index) in filteredSuggestions" :key="index" :value="suggestion">
-            {{ suggestion }}
-          </option>  
-        </select>
-    </div>
+        <h1><center>Carta B (Adicionar para mão)</center></h1>
+        <!-- Dropdown Digitável -->
+      <label for="dropdown">Procure o monstro:</label>
+      <p></p>
+      <div class="dropdown-container">
+          <input
+            id="dropdown"
+            type="text"
+            v-model="textInput"
+            placeholder="Digite para filtrar..."
+            @input="filterSuggestions"
+          />
+          <!-- Dropdown com Sugestões Filtradas -->
+          <select v-if="filteredSuggestions.length" v-model="selectedOption" @change="onSelectSuggestion">
+            <option v-for="(suggestion, index) in filteredSuggestions" :key="index" :value="suggestion">
+              {{ suggestion }}
+            </option>  
+          </select>
+      </div>
 
-    <!-- Display Selected Option -->
-    <p v-if="selectedOption">Monstro selecionado: {{ selectedOption }}</p>
-    <!-- Display Card Info -->
-    <div v-if="cardInfo">
-    <h2>Informações da Carta:</h2>
-    <pre>{{ cardInfo }}</pre>
-    </div>
+      <!-- Display Card Info -->
+      <div v-if="cardInfo && !cardInfo.error">
+        <h2>Informações da Carta:</h2>
+        <div v-if="cardInfo.name">
+          <h3>{{ cardInfo.name }}</h3>
+          <p><strong>Tipo:</strong> {{ cardInfo.type }}</p>
+          <p><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
+          <p><strong>ATK/DEF:</strong> {{ cardInfo.atk }}/{{ cardInfo.def }}</p>
+          <p><strong>Level:</strong> {{ cardInfo.level }}</p>
+          <img 
+            v-if="cardInfo.card_images && cardInfo.card_images[0]" 
+            :src="cardInfo.card_images[0].image_url" 
+            :alt="cardInfo.name"
+            style="max-width: 300px;"
+          >
+        </div>
+        <pre v-else>{{ cardInfo }}</pre>
+      </div>
+      <div v-else-if="cardInfo && cardInfo.error">
+        <p class="error">{{ cardInfo.error }}</p>
+      </div>
     </div>
   </template>
   
@@ -62,12 +76,11 @@
       this.filteredSuggestions = this.suggestions.filter(suggestion =>
         suggestion.toLowerCase().includes(this.textInput.toLowerCase())
       );
-      // Define a primeira sugestão como selecionada, se houver sugestões
-      if (this.filteredSuggestions.length > 0) {
-        this.selectedOption = this.filteredSuggestions[0];
-      } else {
-        this.selectedOption = ''; // Limpa a seleção se não houver sugestões
-      }
+    },
+    onSelectSuggestion() {
+      // Atualiza o campo de entrada com a sugestão selecionada
+      this.textInput = ''; // Mantém o campo de entrada em branco
+      this.fetchCardInfo(); // Busca as informações da carta selecionada
     },
     async fetchCardInfo() {
       if (!this.selectedOption) return;
@@ -77,11 +90,18 @@
           params: { name: this.selectedOption }
         });
 
-        this.cardInfo = response.data;
-        console.log('Informações da carta:', this.cardInfo);
+        // Verifica se a resposta tem a estrutura esperada
+        if (response.data && typeof response.data === 'object') {
+          this.cardInfo = response.data;
+        } else {
+          this.cardInfo = { error: 'Formato de dados inválido da API' };
+        }
       } catch (error) {
-        console.error('Erro ao buscar informações da carta:', error.message);
-        this.cardInfo = { error: 'Erro ao buscar informações da carta.' };
+        console.error('Erro ao buscar informações da carta:', error);
+        this.cardInfo = { 
+          error: error.response?.data?.error || 
+                'Erro ao buscar informações da carta.' 
+        };
       }
     }
   },

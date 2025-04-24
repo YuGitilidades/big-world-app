@@ -2,11 +2,13 @@ const express = require('express');
 const axios = require('axios');
 const fs = require('fs-extra');
 const path = require('path');
-const cors = require('cors');
-app.use(cors());
+const cors = require('cors'); // Para permitir requisições de outros domínios 
+
 
 const app = express();
+app.use(cors());
 const PORT = 3000;
+
 
 // Diretório para armazenar os dados das cartas
 const DATA_DIR = path.join(__dirname, 'card-data');
