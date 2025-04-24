@@ -21,7 +21,10 @@ app.get('/api/card', async (req, res) => {
     return res.status(400).json({ error: 'O nome da carta é obrigatório.' });
   }
 
-  const filePath = path.join(DATA_DIR, `${cardName}.json`);
+  function sanitizeFileName(name) {
+    return name.replace(/[:'"<>|?*]/g, '').replace(/\s+/g, '_');
+  }
+  const filePath = path.join(DATA_DIR, `${sanitizeFileName(cardName)}.json`);
 
   try {
     // Verifica se o arquivo já existe localmente
