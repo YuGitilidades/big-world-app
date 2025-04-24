@@ -8,7 +8,8 @@
     color: #fff;
     padding: 10px 0;
     text-align: center;
-    position: fixed; /* Fixa o header na tela */
+    position: sticky; /* Fixa o header na tela */
+    top: 0;
     z-index: 1000; /* Garante que o header fique acima de outros elementos */
     width: 100%
     
@@ -157,31 +158,26 @@ html {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    flex-grow: 1;
     flex-wrap: wrap;
-    padding: 40px;
-    margin-bottom: 10px;
-    height: 100px;
-}
+    padding: 20px;
+    /* Remova height: 100px */
+    flex-grow: 1; /* Adicione esta linha */
 
-.main-content-container2 {
-    display: center;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 100%;
-    flex-grow: 1;
-    flex-wrap: wrap;
-    padding: 10px
 }
 
 .main-content-container>* {
     flex: 1;
-    margin: 10px
+    margin: 10px;
+    overflow: auto; /* Adiciona scroll se necessário */
+    max-height: 80vh; /* Limita a altura máxima */
 }
 
 .main-content {
-    margin-top: 20px;
-    padding-top: 60px; /* Ajuste este valor para a altura do header */
+    margin-top: 2px;
+    flex-grow: 1;
+    padding-top: 10px; /* Ajuste este valor para a altura do header */
+    overflow-x: hidden; /* Previne rolagem horizontal */
+    width: 100%;
   }
 
 footer,
@@ -193,25 +189,30 @@ header {
     color: #fff
 }
 
-@media (max-width:1024px) {
+@media (max-width: 1024px) {
     .main-content-container {
-        flex-direction: column
+      flex-wrap: wrap; /* Permite quebra de linha */
     }
-}
-
-@media (max-width:768px) {
-    .app-container {
-        padding: 0 5px
+    
+    .main-content-container > * {
+      flex: 1 1 45%; /* Dois itens por linha */
+      min-width: unset;
     }
-
+  }
+  
+  @media (max-width: 768px) {
     .main-content-container {
-        padding: 10px
+      flex-direction: column; /* Uma coluna */
+      padding: 10px;
+      gap: 15px;
     }
-
-    .main-content-container>* {
-        margin: 5px
+    
+    .main-content-container > * {
+      flex: 1 1 100%; /* Ocupa toda a largura */
+      width: 100%;
+      margin: 0; /* Remove margens */
     }
-}
+  }
 
 .card-set {
     margin-bottom: 20px;

@@ -4,7 +4,7 @@
     padding: 20px 0;
     text-align: center;
     width: 100%;
-    /*position: fixed; /* Torna o footer fixo */
+    /*position: static; /* Torna o footer fixo */
     /*bottom: 0; /* Posiciona o footer na parte inferior */
     /*left: 0; /* Garante que ele comece na borda esquerda */
     /*z-index: 1000; /* Garante que o footer fique acima de outros elementos */

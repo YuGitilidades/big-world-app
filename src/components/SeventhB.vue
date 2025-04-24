@@ -56,7 +56,7 @@
       selectedOption: '', // Opção selecionada no dropdown
       suggestions: [
         'Number 101: Silent Honor ARK',
-        'Number 102: Glow-Up Lightseraph',
+        'Number 102: Star Seraph Sentry',
         'Number C102: Archfiend Seraph',
         'Tornado Dragon',
         'Ext Ryzeal',

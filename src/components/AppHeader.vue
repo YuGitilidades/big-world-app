@@ -21,5 +21,5 @@ export default {
 </script>
 
 <style scoped>
-@import './Header.css';
+@import '../App.css';
 </style>
