@@ -57,13 +57,19 @@ export default {
     selectedOption: '', // Opção selecionada no dropdown
     suggestions: [
       'Number 101: Silent Honor ARK',
+      'Number C101: Silent Honor DARK',
       'Number 102: Star Seraph Sentry',
       'Number C102: Archfiend Seraph',
       'Number 103: Ragnazero',
+      'Number C103: Ragnafinity',
       'Number 104: Masquerade',
+      'Number C104: Umbral Horror Masquerade',
       "Number 105: Battlin' Boxer Star Cestus",
+      "Number C105: Battlin' Boxer Comet Cestus",
       'Number 106: Giant Hand',
-      'Number 107: Galaxy-Eyes Tachyon Dragon'
+      'Number C106: Giant Red Hand',
+      'Number 107: Galaxy-Eyes Tachyon Dragon',
+      'Number C107: Neo Galaxy-Eyes Tachyon Dragon'
     ], // Lista de sugestões
     filteredSuggestions: [], // Sugestões filtradas
     cardInfo: null // Informações da carta selecionada

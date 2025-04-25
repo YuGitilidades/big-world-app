@@ -61,6 +61,7 @@
         'Number C102: Archfiend Seraph',
         'Tornado Dragon',
         'Ext Ryzeal',
+        'Red-Eyes Darkness Metal Dragon',
         'Number 103: Ragnazero',
         'Number 104: Masquerade',
         "Number 105: Battlin' Boxer Star Cestus",
