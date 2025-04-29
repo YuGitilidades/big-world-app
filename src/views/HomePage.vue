@@ -13,8 +13,23 @@
       <h4><center> Alexandre Takeshi Yabiku </center></h4>
       <h4><center> Antony Valete dos Santos </center></h4>
     </div>
-    <h4>Changelog:</h4>
-    <h5>v1.0: Início de tudo</h5>
+    <div class="main-content-home">
+      <h4>Changelog:</h4>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+      <h5>v1.0: Início de tudo</h5>
+    </div>
   </div>
   </template>
   

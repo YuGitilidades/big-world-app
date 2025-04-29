@@ -1,3 +1,4 @@
+/* Estilos globais */
 .dropdown-container {
     position: relative; /* Define o contexto de posicionamento */
     margin-top: 10px;
@@ -6,7 +7,7 @@
 .header {
     background-color: #333;
     color: #fff;
-    padding: 10px 0;
+    padding: 0 0;
     text-align: center;
     position: sticky; /* Fixa o header na tela */
     top: 0;
@@ -16,7 +17,7 @@
 }
 
 .company-name {
-    margin: 0;
+    margin-top: 20px;
     font-size: 48px;
     margin-bottom: 20px
 }
@@ -46,27 +47,45 @@ select {
 
 .nav-list {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 0px;
+    margin-bottom: 10px;
     display: flex;
     justify-content: center;
-    gap: 20px;
     flex-wrap: wrap
 }
 
 .nav-item {
-    position: relative
+    flex: 1 1 auto; /* Faz com que os itens cresçam ou encolham igualmente */
+    text-align: center; /* Centraliza o texto dentro do item */
+    display: flex; /* Torna o item um container flex */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+    min-width: 100px; /* Define uma largura mínima para os itens */
+    height: 50px; /* Define uma altura fixa para os itens */
+    background-color: #333; /* Cor de fundo dos itens */
+    border: 1px solid #333; /* Adicione uma borda para visualização */
+    border-radius: 5px; /* Adiciona cantos arredondados */
+    color: #fff; /* Cor do texto */
+    margin: 5px; /* Espaçamento entre os itens */
+    transition: background-color 0.3s ease; /* Animação para hover */
 }
 
 .nav-item a {
     color: #fff;
-    text-decoration: none;
-    padding: 5px 10px;
+    text-decoration: none; /* Remove o sublinhado dos links */
+    color: inherit; /* Herda a cor do pai */
+    width: 100%; /* Faz o link ocupar todo o espaço do item */
+    height: 100%; /* Faz o link ocupar toda a altura do item */
+    display: flex; /* Torna o link um container flex */
+    justify-content: center; /* Centraliza o texto horizontalmente */
+    align-items: center; /* Centraliza o texto verticalmente */
+    border-radius: 5px; /* Adiciona cantos arredondados */
     transition: background-color .3s ease
 }
 
 .nav-item a:hover {
-    background-color: #555
+    background-color: #555;
+    border-radius: 5px; /* Adiciona cantos arredondados */
 }
 
 .nav-item .dropdown-menu {
@@ -170,6 +189,9 @@ html {
     margin: 10px;
     overflow: auto; /* Adiciona scroll se necessário */
     max-height: 80vh; /* Limita a altura máxima */
+    border: 15px solid #bb85a3; /* Adicione uma borda para visualização */
+    border-radius: 10px; /* Adiciona cantos arredondados */
+    padding: 3%; /* Adiciona espaçamento interno de 3px */
 }
 
 .main-content {
@@ -179,6 +201,20 @@ html {
     overflow-x: hidden; /* Previne rolagem horizontal */
     width: 100%;
   }
+
+.main-content-home {
+    margin-top: 2px;
+    flex-grow: 1;
+    padding: 3px; /* Adiciona espaçamento interno */
+    overflow: auto; /* Adiciona scroll se necessário */
+    max-height: 40vh; /* Limita a altura máxima */
+    width: 100%;
+    border: 5px solid #bb85a3; /* Adicione uma borda para visualização */
+    border-radius: 10px; /* Adiciona cantos arredondados */
+    padding: 3%; /* Adiciona espaçamento interno de 3px */
+    background-color: #f9f9f9; /* Adiciona uma cor de fundo */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve */
+}
 
 footer,
 header {
@@ -223,11 +259,13 @@ header {
   button {
     margin-top: 10px;
     padding: 10px 20px;
-    background-color: #007bff;
+    background-color: #369671;
+    border-radius: 5px; /* Adiciona cantos arredondados */
     color: white;
     border: none;
     cursor: pointer;
   }
   button:hover {
-    background-color: #0056b3;
+    background-color: #369671;
+    border-radius: 5px; /* Adiciona cantos arredondados */
   }
