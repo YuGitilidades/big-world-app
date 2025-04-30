@@ -1,8 +1,12 @@
 <template>
   <header class="header">
-    <h1 class="company-name">YugiUtilidades</h1>
+
     <nav class="nav">
       <ul class="nav-list">
+        <h1 class="company-name">
+          <img src='@/assets/logo.png' alt="Logo" class="company-logo" />
+          YugiUtilidades
+        </h1>
         <li class="nav-item"><router-link :to="{name: 'HomePage'}">Home</router-link></li>
         <li class="nav-item"><router-link :to="{name: 'DatabaseYugi'}">Database de cartas</router-link></li>
         <li class="nav-item"><router-link :to="{name: 'SmallWorld'}">Small World</router-link></li>

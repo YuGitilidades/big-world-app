@@ -17,9 +17,19 @@
 }
 
 .company-name {
+    display: flex;
     margin-top: 20px;
-    font-size: 48px;
+    font-size: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
     margin-bottom: 20px
+}
+
+.company-logo {
+    width: 30px; /* Ajuste o tamanho da imagem */
+    height: 30px; /* Ajuste o tamanho da imagem */
+    margin-right: 10px; /* Espaçamento entre a imagem e o texto */
+    object-fit: contain; /* Garante que a imagem se ajuste ao tamanho sem distorção */
 }
 
 input {

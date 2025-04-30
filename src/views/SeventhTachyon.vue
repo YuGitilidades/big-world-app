@@ -1,5 +1,6 @@
 <template>
     <div class="app-container">
+      <h1><center>Seventh Tachyon</center></h1>
       <div class="main-content-container">
         <SeventhA />
         <SeventhB />

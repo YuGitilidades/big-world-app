@@ -1,5 +1,6 @@
 <template>
     <div class="app-container">
+      <h1><center>Small World</center></h1>
       <div class="main-content-container">
             <CartaA />
             <CartaB />
