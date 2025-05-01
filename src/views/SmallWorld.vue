@@ -2,27 +2,27 @@
     <div class="app-container">
       <h1><center>Small World</center></h1>
       <div class="main-content-container">
-            <CartaA />
-            <CartaB />
+            <SmallWorldA />
+            <SmallWorldB />
       </div>
       <div class="main-content-container">
-            <CartaC />
+            <SmallWorldC />
       </div>
     </div>
   </template>
   
   <script>
-  import CartaA from '../components/CartaA.vue';
-  import CartaB from '../components/CartaB.vue';
-  import CartaC from '../components/CartaC.vue'; 
+  import SmallWorldA from '../components/SmallWorldA.vue';
+  import SmallWorldB from '../components/SmallWorldB.vue';
+  import SmallWorldC from '../components/SmallWorldC.vue'; 
 
   
   export default {
     name: 'SmallWorld',
     components: {
-     CartaA,
-     CartaB,
-     CartaC
+      SmallWorldA,
+      SmallWorldB,
+      SmallWorldC
     }
   };
   </script>

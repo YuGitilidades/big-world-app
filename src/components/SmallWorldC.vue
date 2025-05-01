@@ -25,7 +25,7 @@
 
 <script>
 export default {
-  name: 'CartaC',
+  name: 'SmallWorldC',
   data() {
   return {
     textInput: '', // Texto digitado pelo usuário

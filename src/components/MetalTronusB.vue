@@ -1,7 +1,7 @@
 <template>
     <div>
-      <h1><center>Carta A (Banir da mão)</center></h1>
-       <!-- Dropdown Digitável -->
+      <h1><center>Carta B (Monstro que vem do Deck)</center></h1>
+      <!-- Dropdown Digitável -->
       <label for="dropdown">Procure o monstro:</label>
       <P>  </P>
       <div class="dropdown-container">
@@ -25,7 +25,7 @@
   
   <script>
   export default {
-    name: 'CartaA',
+    name: 'MetalTronusB',
     data() {
     return {
       textInput: '', // Texto digitado pelo usuário
@@ -65,5 +65,5 @@
   </script>
   
   <style scoped>
-      @import '../App.css'; /* Importa o arquivo CSS */
+    @import '../App.css'; /* Importa o arquivo CSS */
   </style>

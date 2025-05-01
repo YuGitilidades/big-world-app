@@ -2,22 +2,22 @@
     <div class="app-container">
       <h1><center>Metaltronus</center></h1>
       <div class="main-content-container">
-            <CartaA />
-            <CartaB />
+            <MetalTronusA />
+            <MetalTronusB />
       </div>
     </div>
   </template>
   
   <script>
-  import CartaA from '../components/CartaA.vue';
-  import CartaB from '../components/CartaB.vue';
+  import MetalTronusA from '../components/MetalTronusA.vue';
+  import MetalTronusB from '../components/MetalTronusB.vue';
 
   
   export default {
     name: 'MetalTronus',
     components: {
-     CartaA,
-     CartaB
+     MetalTronusA,
+     MetalTronusB
     }
   };
   </script>
