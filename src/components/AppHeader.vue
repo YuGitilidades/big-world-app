@@ -8,7 +8,7 @@
           YugiUtilidades
         </h1>
         <li class="nav-item"><router-link :to="{name: 'HomePage'}">Home</router-link></li>
-        <li class="nav-item"><router-link :to="{name: 'DatabaseYugi'}">Database de cartas</router-link></li>
+<!--     <li class="nav-item"><router-link :to="{name: 'DatabaseYugi'}">Database de cartas</router-link></li>*/  --> 
         <li class="nav-item"><router-link :to="{name: 'SmallWorld'}">Small World</router-link></li>
         <li class="nav-item"><router-link :to="{name: 'MetalTronus'}">Metaltronus</router-link></li>
         <li class="nav-item"><router-link :to="{name: 'YgoProb'}">YugiohPro(babilidade)</router-link></li>
