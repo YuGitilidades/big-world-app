@@ -23,6 +23,9 @@
   import TutorialModal from '../components/TutorialModal.vue';
   import MetalTronusA from '../components/MetalTronusA.vue';
   import MetalTronusB from '../components/MetalTronusB.vue';
+  import tutorialWelcomeImg from '/src/assets/metaltronus/tutorial-welcome.png';
+  import tutorialSectionAImg from '/src/assets/metaltronus/tutorial-section-a.png';
+  import tutorialSectionBImg from '/src/assets/metaltronus/tutorial-section-b.png';
 
   
   export default {
@@ -38,23 +41,18 @@
         {
           title: "Bem-vindo ao Small World!",
           content: "Esta é uma introdução ao funcionamento da nossa plataforma. Use as setas ou clique nos indicadores para navegar pelo tutorial e conhecer cada seção.",
-          image: "/src/assets/images/tutorial-welcome.png"
+          image: tutorialWelcomeImg
         },
         {
           title: "Seção A - Principais Funcionalidades",
           content: "Na seção superior esquerda, você encontrará as principais funcionalidades do sistema. Aqui você pode acessar os recursos mais importantes e realizar as operações centrais da plataforma.",
-          image: "/src/assets/images/tutorial-section-a.png"
+          image: tutorialSectionAImg
         },
         {
           title: "Seção B - Ferramentas Auxiliares",
           content: "A seção superior direita contém ferramentas auxiliares e configurações avançadas. Essas funcionalidades complementam o sistema principal e permitem personalizar sua experiência.",
-          image: "/src/assets/images/tutorial-section-b.png"
+          image: tutorialSectionBImg
         },
-        {
-          title: "Seção C - Dashboard Central",
-          content: "A seção inferior é seu dashboard principal, onde você verá informações consolidadas, relatórios e poderá monitorar todas as suas atividades de forma centralizada.",
-          image: "/src/assets/images/tutorial-section-c.png"
-        }
       ]
     };
   },

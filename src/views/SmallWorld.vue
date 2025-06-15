@@ -16,8 +16,6 @@
       <div class="main-content-container">
         <SmallWorldA />
         <SmallWorldB />
-      </div>
-      <div class="main-content-container">
         <SmallWorldC />
       </div>
     </div>
@@ -29,10 +27,12 @@ import TutorialModal from '../components/TutorialModal.vue';
 import SmallWorldA from '../components/SmallWorldA.vue';
 import SmallWorldB from '../components/SmallWorldB.vue';
 import SmallWorldC from '../components/SmallWorldC.vue';
-import tutorialWelcomeImg from '/src/assets/tutorial-welcome.png';
-//import tutorialSectionAImg from '/src/assets/images/tutorial-section-a.png';
-//import tutorialSectionBImg from '/src/assets/images/tutorial-section-b.png';
-//import tutorialSectionCImg from '/src/assets/images/tutorial-section-c.png';
+import tutorialWelcomeImg from '/src/assets/small-world/tutorial-welcome.png';
+import tutorialSectionAImg from '/src/assets/small-world/tutorial-section-a.png';
+import tutorialSectionBImg from '/src/assets/small-world/tutorial-section-b.png';
+import tutorialSectionCImg from '/src/assets/small-world/tutorial-section-c.png';
+
+
 
 export default {
   name: 'SmallWorld',
@@ -53,17 +53,17 @@ export default {
         {
           title: "Seção A - Principais Funcionalidades",
           content: "Na seção superior esquerda, você encontrará as principais funcionalidades do sistema. Aqui você pode acessar os recursos mais importantes e realizar as operações centrais da plataforma.",
-          image: "/src/assets/images/tutorial-section-a.png"
+          image: tutorialSectionAImg
         },
         {
           title: "Seção B - Ferramentas Auxiliares",
           content: "A seção superior direita contém ferramentas auxiliares e configurações avançadas. Essas funcionalidades complementam o sistema principal e permitem personalizar sua experiência.",
-          image: "/src/assets/images/tutorial-section-b.png"
+          image: tutorialSectionBImg
         },
         {
           title: "Seção C - Dashboard Central",
           content: "A seção inferior é seu dashboard principal, onde você verá informações consolidadas, relatórios e poderá monitorar todas as suas atividades de forma centralizada.",
-          image: "/src/assets/images/tutorial-section-c.png"
+          image: tutorialSectionCImg
         }
       ]
     };
