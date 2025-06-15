@@ -1,5 +1,6 @@
 <template>
     <div class="app-container">
+      <h1><center>Calculadora de Probabilidades</center></h1>
       <div class="main-content-container">
         <ProbCalc />
       </div>

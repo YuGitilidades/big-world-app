@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1><center>Calculadora de Probabilidades</center></h1>
 
     <!-- Inputs para os parâmetros gerais -->
     <div>

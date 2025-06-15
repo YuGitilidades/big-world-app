@@ -1,0 +1,349 @@
+/* tutorial.css - Estilos do componente Tutorial */
+
+/* Botão de Help */
+.tutorial-help-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1001; /* Maior que o header */
+  background-color: #369671; /* Mesma cor dos botões do App.css */
+  color: white;
+  border: none;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+.tutorial-help-btn:hover {
+  background-color: #2d7a5e;
+}
+
+/* Overlay */
+.tutorial-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(51, 51, 51, 0.8); /* Usando a cor do header (#333) com transparência */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Modal */
+.tutorial-modal {
+  background: #f9f9f9; /* Mesma cor de fundo do main-content-home */
+  border: 15px solid #bb85a3; /* Mesma borda rosa do main-content-container */
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  max-width: 800px;
+  width: 100%;
+  max-height: 85vh;
+  overflow: hidden;
+  font-family: Arial, sans-serif;
+  animation: fadeInUp 0.3s ease;
+}
+
+/* Header */
+.tutorial-header {
+  background-color: #333; /* Mesma cor do header */
+  color: #fff;
+  padding: 20px;
+  text-align: center;
+  position: relative;
+}
+
+.tutorial-close-btn {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 25px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.tutorial-close-btn:hover {
+  color: #ccc;
+}
+
+.tutorial-header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+/* Conteúdo */
+.tutorial-content {
+  padding: 3%; /* Mesmo padding do main-content-container */
+  overflow: auto;
+  max-height: calc(85vh - 80px);
+}
+
+/* Container da imagem */
+.tutorial-image-container {
+  width: 100%;
+  height: 500px;
+  margin-bottom: 20px;
+  border: 5px solid #bb85a3;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #e9e9e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tutorial-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.tutorial-image:hover {
+  transform: scale(1.02);
+}
+
+/* Placeholder para quando não há imagem */
+.tutorial-image-placeholder {
+  color: #999;
+  font-size: 48px;
+  text-align: center;
+}
+
+/* Texto */
+.tutorial-text {
+  color: #333;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  text-align: justify;
+  padding: 15px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+/* Indicadores */
+.tutorial-indicators {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.tutorial-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid #bb85a3;
+  background: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.tutorial-dot.active {
+  background: #bb85a3;
+  transform: scale(1.2);
+}
+
+.tutorial-dot:hover:not(.active) {
+  background: #d4a5bf;
+}
+
+/* Navegação */
+.tutorial-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+  padding: 0 10px;
+}
+
+.tutorial-nav-btn {
+  background-color: #369671;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tutorial-nav-btn:hover:not(.disabled) {
+  background-color: #2d7a5e;
+}
+
+.tutorial-nav-btn.disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.tutorial-counter {
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Checkbox */
+.tutorial-checkbox-section {
+  border-top: 1px solid #ccc;
+  padding-top: 20px;
+  margin-bottom: 20px;
+}
+
+.tutorial-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #333;
+  font-size: 14px;
+  padding: 10px;
+  background-color: white;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.tutorial-checkbox {
+  margin-right: 10px;
+  width: 16px;
+  height: 16px;
+  accent-color: #bb85a3;
+}
+
+/* Footer */
+.tutorial-footer {
+  text-align: center;
+  padding-top: 10px;
+}
+
+.tutorial-help-btn {
+  position: fixed;
+  top: 12%;
+  transform: translateY(-12%);
+  z-index: 1001;
+  background-color: #369671;
+  color: white;
+  border: none;
+  width: 220px;           /* Aumente conforme necessário */
+  height: 60px;           /* Aumente conforme necessário */
+  border-radius: 30px;    /* Metade da altura para efeito pílula */
+  font-size: 20px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 24px;        /* Espaço interno para o texto */
+}
+
+.tutorial-finish-btn:hover {
+  background-color: #2d7a5e;
+}
+
+/* Animações */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .tutorial-modal {
+    margin: 10px;
+    max-width: calc(100vw - 20px);
+    border-width: 10px;
+  }
+  
+  .tutorial-content {
+    padding: 15px;
+  }
+  
+  .tutorial-header {
+    padding: 15px;
+  }
+  
+  .tutorial-header h2 {
+    font-size: 20px;
+  }
+  
+  .tutorial-image-container {
+    height: 200px;
+  }
+  
+  .tutorial-text {
+    font-size: 14px;
+    padding: 10px;
+  }
+  
+  .tutorial-navigation {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .tutorial-nav-btn {
+    width: 100%;
+    max-width: 150px;
+  }
+  
+  .tutorial-help-btn {
+    top: 15px;
+    right: 15px;
+    width: 45px;
+    height: 45px;
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .tutorial-modal {
+    max-width: 90vw;
+  }
+  
+  .tutorial-image-container {
+    height: 220px;
+  }
+}
+
+/* Variações de tema (opcional) */
+.tutorial-modal.theme-dark {
+  background: #2d3748;
+  color: white;
+}
+
+.tutorial-modal.theme-dark .tutorial-text {
+  background-color: #4a5568;
+  color: white;
+  border-color: #718096;
+}
+
+.tutorial-modal.theme-dark .tutorial-checkbox-label {
+  background-color: #4a5568;
+  color: white;
+  border-color: #718096;
+}
