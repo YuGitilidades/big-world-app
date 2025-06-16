@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="componente-fundo-branco">
     <h1><center>Carta B (Monstro que vem do Main/Extra Deck)</center></h1>
      <!-- Dropdown Digitável -->
     <label for="dropdown">Procure o monstro:</label>

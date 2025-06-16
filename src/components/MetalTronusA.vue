@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="componente-fundo-branco">
       <h1><center>Carta A (Monstro do Oponente)</center></h1>
        <!-- Dropdown Digitável -->
       <label for="dropdown">Procure o monstro:</label>

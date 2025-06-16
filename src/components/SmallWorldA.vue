@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="componente-fundo-branco">
       <h1><center>Carta A (Banir da mão)</center></h1>
        <!-- Dropdown Digitável -->
     <label for="dropdown">Escolha qual No. voce quer revelar:</label>

@@ -38,18 +38,18 @@
     return {
       tutorialSlides: [
         {
-          title: "Bem-vindo ao Small World!",
-          content: "Esta é uma introdução ao funcionamento da nossa plataforma. Use as setas ou clique nos indicadores para navegar pelo tutorial e conhecer cada seção.",
+          title: "Seventh Tachyon, moldando o destino dos Barian!",
+          content: "Revele 1 Monstro Xyz 'Número' no seu Deck Adicional com um número entre '101' e '107' em seu nome; adicione 1 monstro do seu Deck à sua mão com o mesmo Tipo ou Atributo que o desse monstro, e o mesmo Nível que a Classe desse monstro e, depois, coloque 1 card da sua mão no topo do Deck e, além disso, pelo resto deste turno depois que este card resolver, você não pode Invocar por Invocação-Especial do Deck Adicional, exceto Monstros Xyz. Você só pode ativar 1 'Táquion do Sétimo' por turno.",
           image: tutorialWelcomeImg
         },
         {
           title: "Seção A - Principais Funcionalidades",
-          content: "Na seção superior esquerda, você encontrará as principais funcionalidades do sistema. Aqui você pode acessar os recursos mais importantes e realizar as operações centrais da plataforma.",
+          content: "Nessa tela, poderá pesquisar e selecionar o monstro A que deseja revelar do seu Deck Adicional. As informações do monstro A serão exibidas para referência.",
           image: tutorialSectionAImg
         },
         {
           title: "Seção B - Ferramentas Auxiliares",
-          content: "A seção superior direita contém ferramentas auxiliares e configurações avançadas. Essas funcionalidades complementam o sistema principal e permitem personalizar sua experiência.",
+          content: "Nessa tela, poderá pesquisar e selecionar o monstro B que deseja adicionar à sua mão. As informações do monstro B serão exibidas para referência.",
           image: tutorialSectionBImg
         },
       ]
