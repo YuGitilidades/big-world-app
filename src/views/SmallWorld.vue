@@ -46,23 +46,23 @@ export default {
     return {
       tutorialSlides: [
         {
-          title: "Bem-vindo ao Small World!",
+          title: "Mundo Pequeno, grandes possibilidades!",
           content: "Revele 1 monstro na sua mão, selecione 1 monstro do seu Deck que tenha exatamente 1 do mesmo Tipo, Atributo, Nível, ATK ou DEF e bana o monstro revelado da sua mão, com a face para baixo. Depois, adicione do Deck à sua mão, 1 monstro que tenha exatamente 1 do mesmo Tipo, Atributo, Nível, ATK ou DEF que o do monstro selecionado do seu Deck e bana o card selecionado do Deck, com a face para baixo. Você só pode ativar 1 'Mundo Pequeno' por turno.",
           image: tutorialWelcomeImg
         },
         {
-          title: "Seção A - Principais Funcionalidades",
-          content: "Na seção superior esquerda, você encontrará as principais funcionalidades do sistema. Aqui você pode acessar os recursos mais importantes e realizar as operações centrais da plataforma.",
+          title: "Seção A - Monstro Revelado da mão",
+          content: "Nessa tela, poderá pesquisar e selecionar o monstro A que deseja revelar da sua mão. As informações do monstro A serão exibidas para referência.",
           image: tutorialSectionAImg
         },
         {
-          title: "Seção B - Ferramentas Auxiliares",
-          content: "A seção superior direita contém ferramentas auxiliares e configurações avançadas. Essas funcionalidades complementam o sistema principal e permitem personalizar sua experiência.",
+          title: "Seção B - Monstro banido do Deck",
+          content: "Nessa tela, poderá pesquisar e selecionar o monstro B que deseja banir do seu Deck. O monstro B deve ter exatamente 1 do mesmo Tipo, Atributo, Nível, ATK ou DEF que o monstro A. As informações do monstro B serão exibidas para referência.",
           image: tutorialSectionBImg
         },
         {
-          title: "Seção C - Dashboard Central",
-          content: "A seção inferior é seu dashboard principal, onde você verá informações consolidadas, relatórios e poderá monitorar todas as suas atividades de forma centralizada.",
+          title: "Seção C - Monstro adicionado à mão",
+          content: "Nessa tela, poderá pesquisar e selecionar o monstro C que deseja adicionar à sua mão. O monstro C deve ter exatamente 1 do mesmo Tipo, Atributo, Nível, ATK ou DEF que o monstro B. As informações do monstro C serão exibidas para referência.",
           image: tutorialSectionCImg
         }
       ]

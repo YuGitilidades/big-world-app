@@ -39,18 +39,18 @@
     return {
       tutorialSlides: [
         {
-          title: "Bem-vindo ao Small World!",
-          content: "Esta é uma introdução ao funcionamento da nossa plataforma. Use as setas ou clique nos indicadores para navegar pelo tutorial e conhecer cada seção.",
+          title: "Metaltronus, pronto para resolver os problemas!",
+          content: "Escolha 1 monstro com a face para cima que não seja Ficha que seu oponente controla; Invoque por Invocação-Especial 1 monstro da sua mão, do Deck ou do Deck Adicional que tenha 2 ou mais do mesmo Tipo, Atributo e/ou ATK (mas negue seus efeitos) e, se isso acontecer, negue os efeitos do monstro alvo e, além disso, depois, se esses monstros tiverem o mesmo nome, você pode banir os dois, com a face para baixo. Seu oponente não pode ativar os efeitos do monstro alvo em resposta à ativação deste card. Você só pode ativar 1 'Metaltronus' por turno.",
           image: tutorialWelcomeImg
         },
         {
-          title: "Seção A - Principais Funcionalidades",
-          content: "Na seção superior esquerda, você encontrará as principais funcionalidades do sistema. Aqui você pode acessar os recursos mais importantes e realizar as operações centrais da plataforma.",
+          title: "Seção A - Acabe com eles!",
+          content: "Nessa tela, poderá pesquisar e selecionar o monstro A que deseja banir do campo do seu oponente. As informações do monstro A serão exibidas para referência.",
           image: tutorialSectionAImg
         },
         {
-          title: "Seção B - Ferramentas Auxiliares",
-          content: "A seção superior direita contém ferramentas auxiliares e configurações avançadas. Essas funcionalidades complementam o sistema principal e permitem personalizar sua experiência.",
+          title: "Seção B - Aliado ou ...inimigo?",
+          content: "Nessa tela, poderá pesquisar e selecionar o monstro B que deseja invocar do seu Deck ou do Deck Adicional. As informações do monstro B serão exibidas para referência.",
           image: tutorialSectionBImg
         },
       ]

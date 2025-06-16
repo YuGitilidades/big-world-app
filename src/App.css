@@ -8,7 +8,7 @@
     background-color: #333;
     color: #fff;
     padding: 0 0;
-    text-align: center;
+    text-align: left;
     position: sticky; /* Fixa o header na tela */
     top: 0;
     z-index: 1000; /* Garante que o header fique acima de outros elementos */
@@ -59,14 +59,16 @@ select {
     list-style: none;
     padding: 0px;
     margin-bottom: 10px;
+    align-items: center;
     display: flex;
-    justify-content: center;
+    justify-content: left;
     flex-wrap: wrap
 }
 
 .nav-item {
-    flex: 1 1 auto; /* Faz com que os itens cresçam ou encolham igualmente */
+    padding: 5px 0px;
     text-align: center; /* Centraliza o texto dentro do item */
+    font-size: 25px; /* Tamanho da fonte dos links */
     display: flex; /* Torna o item um container flex */
     justify-content: center; /* Centraliza o conteúdo horizontalmente */
     align-items: center; /* Centraliza o conteúdo verticalmente */
@@ -95,6 +97,7 @@ select {
 
 .nav-item a:hover {
     background-color: #555;
+    
     border-radius: 5px; /* Adiciona cantos arredondados */
 }
 
@@ -179,6 +182,7 @@ html {
     align-items: center;
     min-height: 100vh;
     width: 100%;
+    background-color: #cccccc; /* cinza médio */
     padding: 0
 }
 
@@ -186,6 +190,7 @@ html {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #cccccc; /* cinza médio */
     width: 100%;
     flex-wrap: wrap;
     padding: 20px;
@@ -224,6 +229,13 @@ html {
     padding: 3%; /* Adiciona espaçamento interno de 3px */
     background-color: #f9f9f9; /* Adiciona uma cor de fundo */
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adiciona uma sombra leve */
+}
+
+.componente-fundo-branco {
+  background: #e4cfb9;
+  border-radius: 8px;    /* Opcional: bordas arredondadas */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05); /* Opcional: sombra leve */
+  padding: 24px;         /* Opcional: espaçamento interno */
 }
 
 footer,
