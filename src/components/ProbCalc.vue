@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="componente-fundo-branco"> 
 
     <!-- Inputs para os parâmetros gerais -->
     <div>
