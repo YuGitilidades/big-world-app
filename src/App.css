@@ -68,7 +68,7 @@ select {
 .nav-item {
     padding: 5px 0px;
     text-align: center; /* Centraliza o texto dentro do item */
-    font-size: 25px; /* Tamanho da fonte dos links */
+    font-size: 18px; /* Tamanho da fonte dos links */
     display: flex; /* Torna o item um container flex */
     justify-content: center; /* Centraliza o conteúdo horizontalmente */
     align-items: center; /* Centraliza o conteúdo verticalmente */
@@ -275,7 +275,8 @@ header {
 .card-set {
     margin-bottom: 20px;
     padding: 10px;
-    border: 1px solid #ccc;
+    border: 8px solid #bb85a3;
+    background: #ffe0c1;
     border-radius: 5px;
   }
   button {
