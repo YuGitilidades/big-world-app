@@ -12,12 +12,17 @@
           placeholder="Digite para filtrar..."
           @input="filterSuggestions"
         />
-        <!-- Dropdown com Sugestões Filtradas -->
-        <select v-if="filteredSuggestions.length" v-model="selectedOption" @change="onSelectSuggestion">
-          <option v-for="(suggestion, index) in filteredSuggestions" :key="index" :value="suggestion">
+        <!-- Lista de Sugestões Filtradas abaixo do input -->
+        <ul v-if="filteredSuggestions.length && textInput.trim() !== ''" class="suggestions-list">
+          <li 
+            v-for="(suggestion, index) in filteredSuggestions" 
+            :key="index" 
+            @click="selectSuggestion(suggestion)"
+            class="suggestion-item"
+          >
             {{ suggestion }}
-          </option>  
-        </select>
+          </li>
+        </ul>
     </div>
 
     <!-- Display Card Info -->
@@ -50,7 +55,7 @@ import axios from 'axios';
 
 export default {
   
-  name: 'SeventhA',
+  name: 'SmallWorldC',
   data() {
   return {
     textInput: '', // Texto digitado pelo usuário
@@ -82,10 +87,12 @@ methods: {
       suggestion.toLowerCase().includes(this.textInput.toLowerCase())
     );
   },
-  onSelectSuggestion() {
+  selectSuggestion(suggestion) {
     // Atualiza o campo de entrada com a sugestão selecionada
-    this.textInput = ''; // Mantém o campo de entrada em branco
-    this.fetchCardInfo(); // Busca as informações da carta selecionada
+    this.selectedOption = suggestion;
+    this.textInput = suggestion;
+    this.filteredSuggestions = [];
+    this.fetchCardInfo();
   },
   async fetchCardInfo() {
     if (!this.selectedOption) return;
