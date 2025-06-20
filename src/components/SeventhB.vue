@@ -34,7 +34,7 @@
           <p><strong>Tipo:</strong> {{ cardInfo.race }}</p>
           <p><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
           <p><strong>ATK/DEF:</strong> {{ cardInfo.atk }}/{{ cardInfo.def }}</p>
-          <p><strong>Level:</strong> {{ cardInfo.level }}</p>
+          <p><strong>Nivel/Rank:</strong> {{ cardInfo.level }}</p>
           <img 
             v-if="cardInfo.card_images && cardInfo.card_images[0]" 
             :src="cardInfo.card_images[0].image_url" 
