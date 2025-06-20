@@ -74,7 +74,18 @@ export default {
       'Number 106: Giant Hand',
       'Number C106: Giant Red Hand',
       'Number 107: Galaxy-Eyes Tachyon Dragon',
-      'Number C107: Neo Galaxy-Eyes Tachyon Dragon'
+      'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
+      'Ryzeal Ext',
+      'Effect Veiler',
+      'Ryzeal Ice',
+      'Ryzeal Detonator',
+      'Nibiru, The Primal Being',
+      'Droll & Lock Bird',
+      'Ghost Belle & Haunted Mansion',
+      'Ghost Ogre & Snow Rabbit',
+      'Ash Blossom & Joyous Spring',
+      'Maxx "C"',
+      'Artifact Lancea',
     ], // Lista de sugestões
     filteredSuggestions: [], // Sugestões filtradas
     cardInfo: null // Informações da carta selecionada

@@ -61,17 +61,31 @@
       textInput: '', // Texto digitado pelo usuário
       selectedOption: '', // Opção selecionada no dropdown
       suggestions: [
-        'Number 101: Silent Honor ARK',
-        'Number 102: Star Seraph Sentry',
-        'Number C102: Archfiend Seraph',
-        'Tornado Dragon',
-        'Ext Ryzeal',
-        'Red-Eyes Darkness Metal Dragon',
-        'Number 103: Ragnazero',
-        'Number 104: Masquerade',
-        "Number 105: Battlin' Boxer Star Cestus",
-        'Number 106: Giant Hand',
-        'Number 107: Galaxy-Eyes Tachyon Dragon'
+          'Number 101: Silent Honor ARK',
+      'Number C101: Silent Honor DARK',
+      'Number 102: Star Seraph Sentry',
+      'Number C102: Archfiend Seraph',
+      'Number 103: Ragnazero',
+      'Number C103: Ragnafinity',
+      'Number 104: Masquerade',
+      'Number C104: Umbral Horror Masquerade',
+      "Number 105: Battlin' Boxer Star Cestus",
+      "Number C105: Battlin' Boxer Comet Cestus",
+      'Number 106: Giant Hand',
+      'Number C106: Giant Red Hand',
+      'Number 107: Galaxy-Eyes Tachyon Dragon',
+      'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
+      'Ryzeal Ext',
+      'Effect Veiler',
+      'Ryzeal Ice',
+      'Ryzeal Detonator',
+      'Nibiru, The Primal Being',
+      'Droll & Lock Bird',
+      'Ghost Belle & Haunted Mansion',
+      'Ghost Ogre & Snow Rabbit',
+      'Ash Blossom & Joyous Spring',
+      'Maxx "C"',
+      'Artifact Lancea',
       ], // Lista de sugestões
       filteredSuggestions: [], // Sugestões filtradas
       cardInfo: null // Informações da carta selecionada
