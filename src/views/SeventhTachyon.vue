@@ -73,6 +73,7 @@
     },
     onCardASelected(cardInfo) {
       this.cardA = cardInfo;
+      this.cardB = null; // Limpa a carta B quando A é selecionada
     }
   }
   };

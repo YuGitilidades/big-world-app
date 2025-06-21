@@ -14,9 +14,9 @@
     <div class="app-container">
       <h1><center>Small World</center></h1>
       <div class="main-content-container">
-        <SmallWorldA />
-        <SmallWorldB />
-        <SmallWorldC />
+        <SmallWorldA @card-selected="onCardASelected" />
+        <SmallWorldB :cardA="cardA" @card-selected="onCardBSelected" />
+        <SmallWorldC :cardB="cardB" />
       </div>
     </div>
   </div>
@@ -44,6 +44,8 @@ export default {
   },
   data() {
     return {
+      cardA: null,
+      cardB: null,
       tutorialSlides: [
         {
           title: "Mundo Pequeno, grandes possibilidades!",
@@ -69,6 +71,16 @@ export default {
     };
   },
   methods: {
+    onCardASelected(cardInfo) {
+      this.cardA = cardInfo;
+      this.cardB = null; // Limpa a carta B quando A é selecionada
+      // Você pode executar ações específicas quando a carta A é selecionada
+    },
+    onCardBSelected(cardInfo) {
+      this.cardB = cardInfo;
+      this.cardC = null; // Limpa a carta C quando B é selecionada
+      // Você pode executar ações específicas quando a carta B é selecionada
+    },
     onTutorialClose(data) {
       console.log('Tutorial fechado:', data);
       // Você pode executar ações específicas quando o tutorial é fechado

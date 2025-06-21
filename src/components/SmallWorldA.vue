@@ -119,6 +119,7 @@ export default {
       // Verifica se a resposta tem a estrutura esperada
       if (response.data && typeof response.data === 'object') {
         this.cardInfo = response.data;
+        this.$emit('card-selected', this.cardInfo);
       } else {
         this.cardInfo = { error: 'Formato de dados inválido da API' };
       }

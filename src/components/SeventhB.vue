@@ -53,7 +53,7 @@
   <script>
   import axios from 'axios';
 
- export default {
+  export default {
   name: 'SeventhB',
   props: {
     cardA: Object // Recebe a carta selecionada em SeventhA

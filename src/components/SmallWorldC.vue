@@ -13,7 +13,10 @@
           @input="filterSuggestions"
         />
         <!-- Lista de Sugestões Filtradas abaixo do input -->
-        <ul v-if="filteredSuggestions.length && textInput.trim() !== ''" class="suggestions-list">
+        <ul
+          v-if="filteredSuggestions.length && textInput.trim() !== '' && textInput !== selectedOption"
+          class="suggestions-list"
+        >
           <li 
             v-for="(suggestion, index) in filteredSuggestions" 
             :key="index" 
@@ -51,92 +54,115 @@
 </template>
 
 <script>
-import axios from 'axios';
+  import axios from 'axios';
 
-export default {
-  
+  export default {
   name: 'SmallWorldC',
-  data() {
-  return {
-    textInput: '', // Texto digitado pelo usuário
-    selectedOption: '', // Opção selecionada no dropdown
-    suggestions: [
-      'Number 101: Silent Honor ARK',
-      'Number C101: Silent Honor DARK',
-      'Number 102: Star Seraph Sentry',
-      'Number C102: Archfiend Seraph',
-      'Number 103: Ragnazero',
-      'Number C103: Ragnafinity',
-      'Number 104: Masquerade',
-      'Number C104: Umbral Horror Masquerade',
-      "Number 105: Battlin' Boxer Star Cestus",
-      "Number C105: Battlin' Boxer Comet Cestus",
-      'Number 106: Giant Hand',
-      'Number C106: Giant Red Hand',
-      'Number 107: Galaxy-Eyes Tachyon Dragon',
-      'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
-      'Ext Ryzeal',
-      'Effect Veiler',
-      'Ice Ryzeal',
-      'Ryzeal Detonator',
-      'Nibiru, The Primal Being',
-      'Droll & Lock Bird',
-      'Ghost Belle & Haunted Mansion',
-      'Ghost Ogre & Snow Rabbit',
-      'Ash Blossom & Joyous Spring',
-      'Maxx "C"',
-      'Artifact Lancea',
-      'Tornado Dragon',
-      'D.D. Crow',
-    ], // Lista de sugestões
-    filteredSuggestions: [], // Sugestões filtradas
-    cardInfo: null // Informações da carta selecionada
-  };
-},
-methods: {
-  filterSuggestions() {
-  // Filtra as sugestões com base no texto digitado, com trim e normalização simples
-  const input = this.textInput.trim().toLowerCase();
-  this.filteredSuggestions = this.suggestions.filter(suggestion =>
-    suggestion.toLowerCase().includes(input)
-  );
-},
-  selectSuggestion(suggestion) {
-    // Atualiza o campo de entrada com a sugestão selecionada
-    this.selectedOption = suggestion;
-    this.textInput = suggestion;
-    this.filteredSuggestions = [];
-    this.fetchCardInfo();
+  props: {
+    cardB: Object // Recebe a carta selecionada em SeventhB
   },
-  async fetchCardInfo() {
-    if (!this.selectedOption) return;
-
-    try {
-      const response = await axios.get('http://localhost:3000/api/card', {
-        params: { name: this.selectedOption }
-      });
-
-      // Verifica se a resposta tem a estrutura esperada
-      if (response.data && typeof response.data === 'object') {
-        this.cardInfo = response.data;
-      } else {
-        this.cardInfo = { error: 'Formato de dados inválido da API' };
-      }
-    } catch (error) {
-      console.error('Erro ao buscar informações da carta:', error);
-      this.cardInfo = { 
-        error: error.response?.data?.error || 
-              'Erro ao buscar informações da carta.' 
-      };
+  data() {
+    return {
+      textInput: '',
+      selectedOption: '',
+      suggestions: [
+        
+        'Ext Ryzeal',
+        'Effect Veiler',
+        'Ice Ryzeal',
+        'Ryzeal Detonator',
+        'Nibiru, The Primal Being',
+        'Droll & Lock Bird',
+        'Ghost Belle & Haunted Mansion',
+        'Ghost Ogre & Snow Rabbit',
+        'Ash Blossom & Joyous Spring',
+        'Maxx "C"',
+        'Artifact Lancea',
+        'Tornado Dragon',
+        'D.D. Crow',
+      ],
+      filteredSuggestions: [],
+      cardInfo: null
+    };
+  },
+  watch: {
+    cardB: {
+      handler() {
+        this.textInput = '';
+        this.selectedOption = '';
+        this.cardInfo = null;
+        this.filterSuggestions();
+      },
+      immediate: true
+    },
+    textInput() {
+      this.filterSuggestions();
     }
+  },
+  methods: {
+    async filterSuggestions() {
+      const input = this.textInput.trim().toLowerCase();
+
+      if (!this.cardB) {
+        this.filteredSuggestions = this.suggestions.filter(suggestion =>
+          suggestion.toLowerCase().includes(input)
+        );
+        return;
+      }
+
+      const filtered = [];
+      for (const suggestion of this.suggestions) {
+        if (!suggestion.toLowerCase().includes(input)) continue;
+        try {
+          const response = await axios.get('http://localhost:3000/api/card', {
+            params: { name: suggestion }
+          });
+          const cardC = response.data;
+          let match = 0;
+          if (cardC.level === this.cardB.level) match++;
+          if (cardC.race === this.cardB.race) match++;
+          if (cardC.attribute === this.cardB.attribute) match++;
+          if (cardC.atk === this.cardB.atk) match++;
+          if (cardC.def === this.cardB.def) match++;
+
+          if (match === 1) filtered.push(suggestion);
+          
+        } catch (e) {
+          // ignora erros de fetch individual
+        }
+      }
+      this.filteredSuggestions = filtered;
+    },
+    selectSuggestion(suggestion) {
+      this.selectedOption = suggestion;
+      this.textInput = suggestion;
+    
+      this.fetchCardInfo();
+    },
+    async fetchCardInfo() {
+      if (!this.selectedOption) return;
+      try {
+        const response = await axios.get('http://localhost:3000/api/card', {
+          params: { name: this.selectedOption }
+        });
+        if (response.data && typeof response.data === 'object') {
+          this.cardInfo = response.data;
+        } else {
+          this.cardInfo = { error: 'Formato de dados inválido da API' };
+        }
+      } catch (error) {
+        this.cardInfo = { 
+          error: error.response?.data?.error || 
+                'Erro ao buscar informações da carta.' 
+        };
+      }
+    }
+  },
+  mounted() {
+    this.filterSuggestions();
   }
-},
-mounted() {
-  // Inicializa as sugestões filtradas com todas as opções
-  this.filteredSuggestions = this.suggestions;
-}
 };
-</script>
+  </script>
 
 <style scoped>
     @import '../App.css'; /* Importa o arquivo CSS */
