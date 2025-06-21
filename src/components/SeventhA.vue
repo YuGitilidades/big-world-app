@@ -61,7 +61,7 @@ export default {
     textInput: '', // Texto digitado pelo usuário
     selectedOption: '', // Opção selecionada no dropdown
     suggestions: [
-        'Number 101: Silent Honor ARK',
+       'Number 101: Silent Honor ARK',
       'Number C101: Silent Honor DARK',
       'Number 102: Star Seraph Sentry',
       'Number C102: Archfiend Seraph',
@@ -75,9 +75,9 @@ export default {
       'Number C106: Giant Red Hand',
       'Number 107: Galaxy-Eyes Tachyon Dragon',
       'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
-      'Ryzeal Ext',
+      'Ext Ryzeal',
       'Effect Veiler',
-      'Ryzeal Ice',
+      'Ice Ryzeal',
       'Ryzeal Detonator',
       'Nibiru, The Primal Being',
       'Droll & Lock Bird',
@@ -86,6 +86,8 @@ export default {
       'Ash Blossom & Joyous Spring',
       'Maxx "C"',
       'Artifact Lancea',
+      'Tornado Dragon',
+      'D.D. Crow',
     ], // Lista de sugestões
     filteredSuggestions: [], // Sugestões filtradas
     cardInfo: null // Informações da carta selecionada
@@ -93,11 +95,12 @@ export default {
 },
   methods: {
   filterSuggestions() {
-    // Filtra as sugestões com base no texto digitado
-    this.filteredSuggestions = this.suggestions.filter(suggestion =>
-      suggestion.toLowerCase().includes(this.textInput.toLowerCase())
-    );
-  },
+  // Filtra as sugestões com base no texto digitado, com trim e normalização simples
+  const input = this.textInput.trim().toLowerCase();
+  this.filteredSuggestions = this.suggestions.filter(suggestion =>
+    suggestion.toLowerCase().includes(input)
+  );
+},
   selectSuggestion(suggestion) {
     // Atualiza o campo de entrada com a sugestão selecionada
     this.selectedOption = suggestion;

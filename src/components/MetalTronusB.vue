@@ -73,9 +73,9 @@ export default {
       'Number C106: Giant Red Hand',
       'Number 107: Galaxy-Eyes Tachyon Dragon',
       'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
-      'Ryzeal Ext',
+      'Ext Ryzeal',
       'Effect Veiler',
-      'Ryzeal Ice',
+      'Ice Ryzeal',
       'Ryzeal Detonator',
       'Nibiru, The Primal Being',
       'Droll & Lock Bird',
@@ -85,6 +85,7 @@ export default {
       'Maxx "C"',
       'Artifact Lancea',
       'Tornado Dragon',
+      'D.D. Crow',
     ], // Lista de sugestões
     filteredSuggestions: [], // Sugestões filtradas
     cardInfo: null // Informações da carta selecionada
@@ -92,9 +93,10 @@ export default {
 },
 methods: {
 filterSuggestions() {
-  // Filtra as sugestões com base no texto digitado
+  // Filtra as sugestões com base no texto digitado, com trim e normalização simples
+  const input = this.textInput.trim().toLowerCase();
   this.filteredSuggestions = this.suggestions.filter(suggestion =>
-    suggestion.toLowerCase().includes(this.textInput.toLowerCase())
+    suggestion.toLowerCase().includes(input)
   );
 },
 selectSuggestion(suggestion) {
