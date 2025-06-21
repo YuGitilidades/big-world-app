@@ -114,9 +114,10 @@ async fetchCardInfo() {
       params: { name: this.selectedOption }
     });
 
-    // Verifica se a resposta tem a estrutura esperada
     if (response.data && typeof response.data === 'object') {
       this.cardInfo = response.data;
+      // EMITE A CARTA PARA O PAI
+      this.$emit('card-selected', this.cardInfo);
     } else {
       this.cardInfo = { error: 'Formato de dados inválido da API' };
     }

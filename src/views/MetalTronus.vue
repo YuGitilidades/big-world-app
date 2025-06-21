@@ -12,8 +12,8 @@
     <div class="app-container">
       <h1><center>Metaltronus</center></h1>
       <div class="main-content-container">
-            <MetalTronusA />
-            <MetalTronusB />
+             <MetalTronusA @card-selected="onCardASelected" />
+             <MetalTronusB :cardA="cardA" />
       </div>
     </div>
   </div>
@@ -37,6 +37,7 @@
     },
     data() {
     return {
+      cardA: null,
       tutorialSlides: [
         {
           title: "Metaltronus, pronto para resolver os problemas!",
@@ -70,6 +71,10 @@
     onTutorialOpened() {
       console.log('Tutorial aberto');
       // Você pode executar ações específicas quando o tutorial é aberto
+    },
+    
+    onCardASelected(cardInfo) {
+      this.cardA = cardInfo;
     }
   }
   };
