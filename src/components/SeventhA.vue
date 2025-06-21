@@ -75,19 +75,6 @@ export default {
       'Number C106: Giant Red Hand',
       'Number 107: Galaxy-Eyes Tachyon Dragon',
       'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
-      'Ext Ryzeal',
-      'Effect Veiler',
-      'Ice Ryzeal',
-      'Ryzeal Detonator',
-      'Nibiru, The Primal Being',
-      'Droll & Lock Bird',
-      'Ghost Belle & Haunted Mansion',
-      'Ghost Ogre & Snow Rabbit',
-      'Ash Blossom & Joyous Spring',
-      'Maxx "C"',
-      'Artifact Lancea',
-      'Tornado Dragon',
-      'D.D. Crow',
     ], // Lista de sugestões
     filteredSuggestions: [], // Sugestões filtradas
     cardInfo: null // Informações da carta selecionada
@@ -119,6 +106,7 @@ export default {
       // Verifica se a resposta tem a estrutura esperada
       if (response.data && typeof response.data === 'object') {
         this.cardInfo = response.data;
+        this.$emit('card-selected', this.cardInfo);
       } else {
         this.cardInfo = { error: 'Formato de dados inválido da API' };
       }

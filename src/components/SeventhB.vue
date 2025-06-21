@@ -53,77 +53,99 @@
   <script>
   import axios from 'axios';
 
-  export default {
-    
-    name: 'SeventhB',
-    data() {
+ export default {
+  name: 'SeventhB',
+  props: {
+    cardA: Object // Recebe a carta selecionada em SeventhA
+  },
+  data() {
     return {
-      textInput: '', // Texto digitado pelo usuário
-      selectedOption: '', // Opção selecionada no dropdown
+      textInput: '',
+      selectedOption: '',
       suggestions: [
-       'Number 101: Silent Honor ARK',
-      'Number C101: Silent Honor DARK',
-      'Number 102: Star Seraph Sentry',
-      'Number C102: Archfiend Seraph',
-      'Number 103: Ragnazero',
-      'Number C103: Ragnafinity',
-      'Number 104: Masquerade',
-      'Number C104: Umbral Horror Masquerade',
-      "Number 105: Battlin' Boxer Star Cestus",
-      "Number C105: Battlin' Boxer Comet Cestus",
-      'Number 106: Giant Hand',
-      'Number C106: Giant Red Hand',
-      'Number 107: Galaxy-Eyes Tachyon Dragon',
-      'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
-      'Ext Ryzeal',
-      'Effect Veiler',
-      'Ice Ryzeal',
-      'Ryzeal Detonator',
-      'Nibiru, The Primal Being',
-      'Droll & Lock Bird',
-      'Ghost Belle & Haunted Mansion',
-      'Ghost Ogre & Snow Rabbit',
-      'Ash Blossom & Joyous Spring',
-      'Maxx "C"',
-      'Artifact Lancea',
-      'Tornado Dragon',
-      'D.D. Crow',
-      ], // Lista de sugestões
-      filteredSuggestions: [], // Sugestões filtradas
-      cardInfo: null // Informações da carta selecionada
+        
+        'Ext Ryzeal',
+        'Effect Veiler',
+        'Ice Ryzeal',
+        'Ryzeal Detonator',
+        'Nibiru, The Primal Being',
+        'Droll & Lock Bird',
+        'Ghost Belle & Haunted Mansion',
+        'Ghost Ogre & Snow Rabbit',
+        'Ash Blossom & Joyous Spring',
+        'Maxx "C"',
+        'Artifact Lancea',
+        'Tornado Dragon',
+        'D.D. Crow',
+      ],
+      filteredSuggestions: [],
+      cardInfo: null
     };
   },
+  watch: {
+    cardA: {
+      handler() {
+        this.textInput = '';
+        this.selectedOption = '';
+        this.cardInfo = null;
+        this.filterSuggestions();
+      },
+      immediate: true
+    },
+    textInput() {
+      this.filterSuggestions();
+    }
+  },
   methods: {
-    filterSuggestions() {
-  // Filtra as sugestões com base no texto digitado, com trim e normalização simples
-  const input = this.textInput.trim().toLowerCase();
-  this.filteredSuggestions = this.suggestions.filter(suggestion =>
-    suggestion.toLowerCase().includes(input)
-  );
-},
+    async filterSuggestions() {
+      const input = this.textInput.trim().toLowerCase();
+
+      if (!this.cardA) {
+        this.filteredSuggestions = this.suggestions.filter(suggestion =>
+          suggestion.toLowerCase().includes(input)
+        );
+        return;
+      }
+
+      const filtered = [];
+      for (const suggestion of this.suggestions) {
+        if (!suggestion.toLowerCase().includes(input)) continue;
+        try {
+          const response = await axios.get('http://localhost:3000/api/card', {
+            params: { name: suggestion }
+          });
+          const cardB = response.data;
+          // Filtro: mesmo level E (mesmo tipo OU mesmo atributo)
+          const levelMatch = cardB.level === this.cardA.level;
+          const typeMatch = cardB.race === this.cardA.race;
+          const attrMatch = cardB.attribute === this.cardA.attribute;
+          if (levelMatch && (typeMatch || attrMatch)) {
+            filtered.push(suggestion);
+          }
+        } catch (e) {
+          // ignora erros de fetch individual
+        }
+      }
+      this.filteredSuggestions = filtered;
+    },
     selectSuggestion(suggestion) {
-      // Atualiza o campo de entrada com a sugestão selecionada
       this.selectedOption = suggestion;
       this.textInput = suggestion;
-      this.filteredSuggestions = [];
+       this.filteredSuggestions = [];
       this.fetchCardInfo();
     },
     async fetchCardInfo() {
       if (!this.selectedOption) return;
-
       try {
         const response = await axios.get('http://localhost:3000/api/card', {
           params: { name: this.selectedOption }
         });
-
-        // Verifica se a resposta tem a estrutura esperada
         if (response.data && typeof response.data === 'object') {
           this.cardInfo = response.data;
         } else {
           this.cardInfo = { error: 'Formato de dados inválido da API' };
         }
       } catch (error) {
-        console.error('Erro ao buscar informações da carta:', error);
         this.cardInfo = { 
           error: error.response?.data?.error || 
                 'Erro ao buscar informações da carta.' 
@@ -132,10 +154,9 @@
     }
   },
   mounted() {
-    // Inicializa as sugestões filtradas com todas as opções
-    this.filteredSuggestions = this.suggestions;
+    this.filterSuggestions();
   }
-  };
+};
   </script>
   
   <style scoped>

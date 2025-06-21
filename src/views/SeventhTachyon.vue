@@ -12,8 +12,8 @@
     <div class="app-container">
       <h1><center>Seventh Tachyon</center></h1>
       <div class="main-content-container">
-        <SeventhA />
-        <SeventhB />
+        <SeventhA @card-selected="onCardASelected" />
+        <SeventhB :cardA="cardA" />
       </div>
     </div>
   </div>
@@ -36,6 +36,7 @@
     },
     data() {
     return {
+      cardA: null,
       tutorialSlides: [
         {
           title: "Seventh Tachyon, moldando o destino dos Barian!",
@@ -69,6 +70,9 @@
     onTutorialOpened() {
       console.log('Tutorial aberto');
       // Você pode executar ações específicas quando o tutorial é aberto
+    },
+    onCardASelected(cardInfo) {
+      this.cardA = cardInfo;
     }
   }
   };
