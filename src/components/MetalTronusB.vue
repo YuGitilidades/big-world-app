@@ -97,6 +97,9 @@ export default {
     // Sempre que cardA mudar, refiltra as sugestões
     cardA: {
       handler() {
+        this.textInput = '';
+        this.selectedOption = '';
+        this.cardInfo = null;
         this.filterSuggestions();
       },
       immediate: true
