@@ -24,10 +24,12 @@
       <h2>Informações da Carta:</h2>
       <div v-if="cardInfo.name">
         <h3>{{ cardInfo.name }}</h3>
+        <p><strong>Atributo:</strong> {{ cardInfo.attribute }}</p>
         <p><strong>Tipo:</strong> {{ cardInfo.type }}</p>
         <p v-if="cardInfo.race"><strong>Tipo/Raça:</strong> {{ cardInfo.race }}</p>
-        <p v-if="cardInfo.atk !== undefined"><strong>ATK:</strong> {{ cardInfo.atk }}</p>
-        <p v-if="cardInfo.def !== undefined"><strong>DEF:</strong> {{ cardInfo.def }}</p>
+        <p v-if="cardInfo.atk !== undefined && cardInfo.def !== undefined"><strong>ATK/DEF:</strong> {{ cardInfo.atk }}/{{ cardInfo.def }}</p>
+        <p v-else-if="cardInfo.atk !== undefined"><strong>ATK:</strong> {{ cardInfo.atk }}</p>
+        <p v-else-if="cardInfo.def !== undefined"><strong>DEF:</strong> {{ cardInfo.def }}</p>
         <p v-if="cardInfo.level"><strong>Nível:</strong> {{ cardInfo.level }}</p>
         <p v-if="cardInfo.desc"><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
         <img v-if="cardInfo.imageUrl" :src="getImageUrl(cardInfo.imageUrl)" :alt="cardInfo.name" style="max-width:200px;" />
@@ -57,7 +59,7 @@
       return {
         textInput: '',
         selectedOptionId: '',
-        suggestions: [], // {id, name}
+        suggestions: [],
         filteredSuggestions: [],
         cardInfo: null
       };
@@ -65,48 +67,55 @@
     methods: {
       async fetchSuggestions() {
         try {
-          // Always send the Bearer token
-          const res = await axios.get(`${API_BASE}/cards/summary`, { headers: getAuthHeaders() });
-          // If the API returns only names, add a fake id as the name for now
-          this.suggestions = res.data.map(card => ({
-            id: card.id || card.name, // fallback to name if id is missing
+          const response = await axios.get(`${API_BASE}/cards/summary`, { headers: getAuthHeaders() });
+          this.suggestions = response.data.map(card => ({
+            id: card.name,
             name: card.name
           }));
           this.filteredSuggestions = this.suggestions;
         } catch (e) {
           this.suggestions = [];
           this.filteredSuggestions = [];
-          this.cardInfo = { error: 'Erro ao buscar sugestões de cartas.' };
         }
       },
       filterSuggestions() {
         const input = this.textInput.trim().toLowerCase();
-        this.filteredSuggestions = this.suggestions.filter(suggestion =>
-          suggestion.name.toLowerCase().includes(input)
+        if (!input) {
+          this.filteredSuggestions = this.suggestions;
+          return;
+        }
+        this.filteredSuggestions = this.suggestions.filter(s =>
+          s.name.toLowerCase().includes(input)
         );
       },
       async onSelectSuggestion() {
         if (!this.selectedOptionId) return;
         await this.fetchCardInfo(this.selectedOptionId);
       },
+      async selectSuggestion(suggestion) {
+        await this.fetchCardInfo(suggestion.id);
+      },
       async fetchCardInfo(idOrName) {
+        this.cardInfo = null;
         try {
-          // Try by id first, fallback to name if id is not a number
-          let url = `${API_BASE}/cards/${idOrName}`;
-          // If idOrName is not a number, try by name endpoint
-          if (isNaN(Number(idOrName))) {
-            url = `${API_BASE}/cards/${encodeURIComponent(idOrName)}`;
-          }
-          const res = await axios.get(url, { headers: getAuthHeaders() });
-          this.cardInfo = res.data;
+          // Try by ID first
+          let response = await axios.get(`${API_BASE}/cards/id/${idOrName}`, { headers: getAuthHeaders() });
+          this.cardInfo = response.data;
         } catch (e) {
-          this.cardInfo = { error: 'Erro ao buscar informações da carta.' };
+          // Fallback to name
+          try {
+            let response = await axios.get(`${API_BASE}/cards/${encodeURIComponent(idOrName)}`, { headers: getAuthHeaders() });
+            this.cardInfo = response.data;
+          } catch (err) {
+            this.cardInfo = { error: 'Carta não encontrada.' };
+          }
         }
       },
       getImageUrl(imageUrl) {
         if (!imageUrl) return '';
-        if (imageUrl.startsWith('http')) return imageUrl;
-        return `https://pub-831792ba11aa4f59a50770e8f03dcc87.r2.dev/${imageUrl}`;
+        // If the API returns just the filename, prepend a base path if needed
+        if (/^https?:\/\//.test(imageUrl)) return imageUrl;
+        return `${API_BASE}/images/${imageUrl}`;
       }
     },
     mounted() {

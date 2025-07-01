@@ -28,10 +28,12 @@
       <h2>Informações da Carta:</h2>
       <div v-if="cardInfo.name">
         <h3>{{ cardInfo.name }}</h3>
+        <p><strong>Atributo:</strong> {{ cardInfo.attribute }}</p>
         <p><strong>Tipo:</strong> {{ cardInfo.type }}</p>
         <p v-if="cardInfo.race"><strong>Tipo/Raça:</strong> {{ cardInfo.race }}</p>
-        <p v-if="cardInfo.atk !== undefined"><strong>ATK:</strong> {{ cardInfo.atk }}</p>
-        <p v-if="cardInfo.def !== undefined"><strong>DEF:</strong> {{ cardInfo.def }}</p>
+        <p v-if="cardInfo.atk !== undefined && cardInfo.def !== undefined"><strong>ATK/DEF:</strong> {{ cardInfo.atk }}/{{ cardInfo.def }}</p>
+        <p v-else-if="cardInfo.atk !== undefined"><strong>ATK:</strong> {{ cardInfo.atk }}</p>
+        <p v-else-if="cardInfo.def !== undefined"><strong>DEF:</strong> {{ cardInfo.def }}</p>
         <p v-if="cardInfo.level"><strong>Nível:</strong> {{ cardInfo.level }}</p>
         <p v-if="cardInfo.desc"><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
         <img v-if="cardInfo.imageUrl" :src="getImageUrl(cardInfo.imageUrl)" :alt="cardInfo.name" style="max-width:200px;" />
