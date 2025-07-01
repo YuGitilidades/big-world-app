@@ -6,21 +6,13 @@
     <p></p>
   <div class="dropdown-container">
       <input
-        id="dropdown"
-        type="text"
         v-model="textInput"
-        placeholder="Digite para filtrar..."
         @input="filterSuggestions"
       />
       <!-- Lista de Sugestões Filtradas abaixo do input -->
       <ul v-if="filteredSuggestions.length && textInput.trim() !== ''" class="suggestions-list">
-        <li 
-          v-for="(suggestion, index) in filteredSuggestions" 
-          :key="index" 
-          @click="selectSuggestion(suggestion)"
-          class="suggestion-item"
-        >
-          {{ suggestion }}
+        <li v-for="suggestion in filteredSuggestions" :key="suggestion.id" @click="selectSuggestion(suggestion)">
+          {{ suggestion.name }}
         </li>
       </ul>
     </div>
@@ -29,17 +21,13 @@
     <h2>Informações da Carta:</h2>
     <div v-if="cardInfo.name">
       <h3>{{ cardInfo.name }}</h3>
-      <p><strong>Atributo:</strong> {{ cardInfo.attribute }}</p>
-      <p><strong>Tipo:</strong> {{ cardInfo.race }}</p>
-      <p><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
-      <p><strong>ATK/DEF:</strong> {{ cardInfo.atk }}/{{ cardInfo.def }}</p>
-      <p><strong>Nivel/Rank:</strong> {{ cardInfo.level }}</p>
-      <img 
-        v-if="cardInfo.card_images && cardInfo.card_images[0]" 
-        :src="cardInfo.card_images[0].image_url" 
-        :alt="cardInfo.name"
-        style="max-width: 300px;"
-      >
+      <p><strong>Tipo:</strong> {{ cardInfo.type }}</p>
+      <p v-if="cardInfo.race"><strong>Tipo/Raça:</strong> {{ cardInfo.race }}</p>
+      <p v-if="cardInfo.atk !== undefined"><strong>ATK:</strong> {{ cardInfo.atk }}</p>
+      <p v-if="cardInfo.def !== undefined"><strong>DEF:</strong> {{ cardInfo.def }}</p>
+      <p v-if="cardInfo.level"><strong>Nível:</strong> {{ cardInfo.level }}</p>
+      <p v-if="cardInfo.desc"><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
+      <img v-if="cardInfo.imageUrl" :src="getImageUrl(cardInfo.imageUrl)" :alt="cardInfo.name" style="max-width:200px;" />
     </div>
     <pre v-else>{{ cardInfo }}</pre>
   </div>
@@ -51,120 +39,76 @@
 
 <script>
 import axios from 'axios';
+const API_BASE = process.env.VUE_APP_API_BASE;
+const API_TOKEN = process.env.VUE_APP_API_TOKEN;
+
+function getAuthHeaders() {
+  return API_TOKEN ? { Authorization: `Bearer ${API_TOKEN}` } : {};
+}
+
 export default {
   name: 'MetalTronusB',
   props: {
-    cardA: Object // Recebe a carta selecionada em A
+    cardA: Object // Recebe a carta selecionada em MetalTronusA
   },
   data() {
     return {
       textInput: '',
       selectedOption: '',
-      suggestions: [
-        'Number 101: Silent Honor ARK',
-        'Number C101: Silent Honor DARK',
-        'Number 102: Star Seraph Sentry',
-        'Number C102: Archfiend Seraph',
-        'Number 103: Ragnazero',
-        'Number C103: Ragnafinity',
-        'Number 104: Masquerade',
-        'Number C104: Umbral Horror Masquerade',
-        "Number 105: Battlin' Boxer Star Cestus",
-        "Number C105: Battlin' Boxer Comet Cestus",
-        'Number 106: Giant Hand',
-        'Number C106: Giant Red Hand',
-        'Number 107: Galaxy-Eyes Tachyon Dragon',
-        'Number C107: Neo Galaxy-Eyes Tachyon Dragon',
-        'Ext Ryzeal',
-        'Effect Veiler',
-        'Ice Ryzeal',
-        'Ryzeal Detonator',
-        'Nibiru, The Primal Being',
-        'Droll & Lock Bird',
-        'Ghost Belle & Haunted Mansion',
-        'Ghost Ogre & Snow Rabbit',
-        'Ash Blossom & Joyous Spring',
-        'Maxx "C"',
-        'Artifact Lancea',
-        'Tornado Dragon',
-        'D.D. Crow',
-      ],
+      suggestions: [],
       filteredSuggestions: [],
       cardInfo: null
     };
   },
   watch: {
-    // Sempre que cardA mudar, refiltra as sugestões
     cardA: {
+      immediate: true,
       handler() {
-        this.textInput = '';
-        this.selectedOption = '';
-        this.cardInfo = null;
         this.filterSuggestions();
-      },
-      immediate: true
+      }
+    },
+    textInput() {
+      this.filterSuggestions();
     }
   },
   methods: {
-    async filterSuggestions() {
-      const input = this.textInput.trim().toLowerCase();
-
-      // Se não há cardA, filtra normalmente
-      if (!this.cardA) {
-        this.filteredSuggestions = this.suggestions.filter(suggestion =>
-          suggestion.toLowerCase().includes(input)
-        );
-        return;
-      }
-
-      // Busca infos das sugestões
-      const filtered = [];
-      for (const suggestion of this.suggestions) {
-        if (!suggestion.toLowerCase().includes(input)) continue;
-        try {
-          const response = await axios.get('http://localhost:3000/api/card', {
-            params: { name: suggestion }
-          });
-          const cardB = response.data;
-          let match = 0;
-          if (cardB.atk === this.cardA.atk) match++;
-          if (cardB.race === this.cardA.race) match++;
-          if (cardB.attribute === this.cardA.attribute) match++;
-          if (match === 2) filtered.push(suggestion);
-        } catch (e) {
-          // ignora erros de fetch individual
-        }
-      }
-      this.filteredSuggestions = filtered;
-    },
-    selectSuggestion(suggestion) {
-      this.selectedOption = suggestion;
-      this.textInput = suggestion;
-      this.filteredSuggestions = [];
-      this.fetchCardInfo();
-    },
-    async fetchCardInfo() {
-      if (!this.selectedOption) return;
+    async fetchSuggestions() {
       try {
-        const response = await axios.get('http://localhost:3000/api/card', {
-          params: { name: this.selectedOption }
-        });
-        if (response.data && typeof response.data === 'object') {
-          this.cardInfo = response.data;
-        } else {
-          this.cardInfo = { error: 'Formato de dados inválido da API' };
-        }
-      } catch (error) {
-        console.error('Erro ao buscar informações da carta:', error);
-        this.cardInfo = { 
-          error: error.response?.data?.error || 
-                'Erro ao buscar informações da carta.' 
-        };
+        const res = await axios.get(`${API_BASE}/cards/summary`, { headers: getAuthHeaders() });
+        this.suggestions = res.data;
+        this.filteredSuggestions = this.suggestions;
+      } catch (e) {
+        this.suggestions = [];
+        this.filteredSuggestions = [];
       }
+    },
+    filterSuggestions() {
+      const input = this.textInput.trim().toLowerCase();
+      this.filteredSuggestions = this.suggestions.filter(suggestion =>
+        suggestion.name.toLowerCase().includes(input)
+      );
+    },
+    async selectSuggestion(suggestion) {
+      this.selectedOption = suggestion.name;
+      this.textInput = suggestion.name;
+      this.filteredSuggestions = [];
+      await this.fetchCardInfo(suggestion.id);
+    },
+    async fetchCardInfo(id) {
+      try {
+        const res = await axios.get(`${API_BASE}/cards/id/${id}`, { headers: getAuthHeaders() });
+        this.cardInfo = res.data;
+      } catch (e) {
+        this.cardInfo = { error: 'Erro ao buscar informações da carta.' };
+      }
+    },
+    getImageUrl(imageUrl) {
+      if (imageUrl.startsWith('http')) return imageUrl;
+      return `https://pub-831792ba11aa4f59a50770e8f03dcc87.r2.dev/${imageUrl}`;
     }
   },
   mounted() {
-    this.filterSuggestions();
+    this.fetchSuggestions();
   }
 };
 </script>

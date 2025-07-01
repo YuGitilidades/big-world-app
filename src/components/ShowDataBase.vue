@@ -13,10 +13,10 @@
           @input="filterSuggestions"
         />
         <!-- Dropdown com Sugestões Filtradas -->
-        <select v-if="filteredSuggestions.length" v-model="selectedOption" @change="onSelectSuggestion">
-          <option v-for="(suggestion, index) in filteredSuggestions" :key="index" :value="suggestion">
-            {{ suggestion }}
-          </option>  
+        <select v-if="filteredSuggestions.length" v-model="selectedOptionId" @change="onSelectSuggestion">
+          <option v-for="suggestion in filteredSuggestions" :key="suggestion.id" :value="suggestion.id">
+            {{ suggestion.name }}
+          </option>
         </select>
       </div>
     <!-- Display Card Info -->
@@ -24,17 +24,13 @@
       <h2>Informações da Carta:</h2>
       <div v-if="cardInfo.name">
         <h3>{{ cardInfo.name }}</h3>
-        <p><strong>Atributo:</strong> {{ cardInfo.attribute }}</p>
-        <p><strong>Tipo:</strong> {{ cardInfo.race }}</p>
-        <p><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
-        <p><strong>ATK/DEF:</strong> {{ cardInfo.atk }}/{{ cardInfo.def }}</p>
-        <p><strong>Rank:</strong> {{ cardInfo.level }}</p>
-        <img 
-          v-if="cardInfo.card_images && cardInfo.card_images[0]" 
-          :src="cardInfo.card_images[0].image_url" 
-          :alt="cardInfo.name"
-          style="max-width: 300px;"
-        >
+        <p><strong>Tipo:</strong> {{ cardInfo.type }}</p>
+        <p v-if="cardInfo.race"><strong>Tipo/Raça:</strong> {{ cardInfo.race }}</p>
+        <p v-if="cardInfo.atk !== undefined"><strong>ATK:</strong> {{ cardInfo.atk }}</p>
+        <p v-if="cardInfo.def !== undefined"><strong>DEF:</strong> {{ cardInfo.def }}</p>
+        <p v-if="cardInfo.level"><strong>Nível:</strong> {{ cardInfo.level }}</p>
+        <p v-if="cardInfo.desc"><strong>Descrição:</strong> {{ cardInfo.desc }}</p>
+        <img v-if="cardInfo.imageUrl" :src="getImageUrl(cardInfo.imageUrl)" :alt="cardInfo.name" style="max-width:200px;" />
       </div>
       <pre v-else>{{ cardInfo }}</pre>
     </div>
@@ -47,73 +43,77 @@
   <script>
 
   import axios from 'axios';
+  // Use only process.env for Vue CLI/Webpack
+  const API_BASE = process.env.VUE_APP_API_BASE;
+  const API_TOKEN = process.env.VUE_APP_API_TOKEN;
+
+  function getAuthHeaders() {
+    return API_TOKEN ? { Authorization: `Bearer ${API_TOKEN}` } : {};
+  }
+  
   export default {
     name: 'ShowDataBase',
     data() {
-    return {
-      textInput: '', // Texto digitado pelo usuário
-      selectedOption: '', // Opção selecionada no dropdown
-      suggestions: [
-      'Number 101: Silent Honor ARK',
-      'Number C101: Silent Honor DARK',
-      'Number 102: Star Seraph Sentry',
-      'Number C102: Archfiend Seraph',
-      'Number 103: Ragnazero',
-      'Number C103: Ragnafinity',
-      'Number 104: Masquerade',
-      'Number C104: Umbral Horror Masquerade',
-      "Number 105: Battlin' Boxer Star Cestus",
-      "Number C105: Battlin' Boxer Comet Cestus",
-      'Number 106: Giant Hand',
-      'Number C106: Giant Red Hand',
-      'Number 107: Galaxy-Eyes Tachyon Dragon',
-      'Number C107: Neo Galaxy-Eyes Tachyon Dragon'
-      ], // Lista de sugestões
-      filteredSuggestions: [], // Sugestões filtradas
-      cardInfo: null // Informações da carta selecionada
-    };
-  },
-  methods: {
-    filterSuggestions() {
-    // Filtra as sugestões com base no texto digitado
-    this.filteredSuggestions = this.suggestions.filter(suggestion =>
-      suggestion.toLowerCase().includes(this.textInput.toLowerCase())
-    );
-  },
-  onSelectSuggestion() {
-    // Atualiza o campo de entrada com a sugestão selecionada
-    this.textInput = ''; // Mantém o campo de entrada em branco
-    this.fetchCardInfo(); // Busca as informações da carta selecionada
-  },
-  async fetchCardInfo() {
-    if (!this.selectedOption) return;
-
-    try {
-      const response = await axios.get('http://localhost:3000/api/card', {
-        params: { name: this.selectedOption }
-      });
-
-      // Verifica se a resposta tem a estrutura esperada
-      if (response.data && typeof response.data === 'object') {
-        this.cardInfo = response.data;
-      } else {
-        this.cardInfo = { error: 'Formato de dados inválido da API' };
-      }
-    } catch (error) {
-      console.error('Erro ao buscar informações da carta:', error);
-      this.cardInfo = { 
-        error: error.response?.data?.error || 
-              'Erro ao buscar informações da carta.' 
+      return {
+        textInput: '',
+        selectedOptionId: '',
+        suggestions: [], // {id, name}
+        filteredSuggestions: [],
+        cardInfo: null
       };
+    },
+    methods: {
+      async fetchSuggestions() {
+        try {
+          // Always send the Bearer token
+          const res = await axios.get(`${API_BASE}/cards/summary`, { headers: getAuthHeaders() });
+          // If the API returns only names, add a fake id as the name for now
+          this.suggestions = res.data.map(card => ({
+            id: card.id || card.name, // fallback to name if id is missing
+            name: card.name
+          }));
+          this.filteredSuggestions = this.suggestions;
+        } catch (e) {
+          this.suggestions = [];
+          this.filteredSuggestions = [];
+          this.cardInfo = { error: 'Erro ao buscar sugestões de cartas.' };
+        }
+      },
+      filterSuggestions() {
+        const input = this.textInput.trim().toLowerCase();
+        this.filteredSuggestions = this.suggestions.filter(suggestion =>
+          suggestion.name.toLowerCase().includes(input)
+        );
+      },
+      async onSelectSuggestion() {
+        if (!this.selectedOptionId) return;
+        await this.fetchCardInfo(this.selectedOptionId);
+      },
+      async fetchCardInfo(idOrName) {
+        try {
+          // Try by id first, fallback to name if id is not a number
+          let url = `${API_BASE}/cards/${idOrName}`;
+          // If idOrName is not a number, try by name endpoint
+          if (isNaN(Number(idOrName))) {
+            url = `${API_BASE}/cards/${encodeURIComponent(idOrName)}`;
+          }
+          const res = await axios.get(url, { headers: getAuthHeaders() });
+          this.cardInfo = res.data;
+        } catch (e) {
+          this.cardInfo = { error: 'Erro ao buscar informações da carta.' };
+        }
+      },
+      getImageUrl(imageUrl) {
+        if (!imageUrl) return '';
+        if (imageUrl.startsWith('http')) return imageUrl;
+        return `https://pub-831792ba11aa4f59a50770e8f03dcc87.r2.dev/${imageUrl}`;
+      }
+    },
+    mounted() {
+      this.fetchSuggestions();
     }
-  }
-},
-mounted() {
-  // Inicializa as sugestões filtradas com todas as opções
-  this.filteredSuggestions = this.suggestions;
-}
-};
-</script>
+  };
+  </script>
   
   <style scoped>
       @import '../App.css'; /* Importa o arquivo CSS */
